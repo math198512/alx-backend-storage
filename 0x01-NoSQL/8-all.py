@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""a Python fupip3 install pymongonction that lists all documents in a collection"""
+"""a Python function that lists all documents in a collection"""
 import pymongo
 
 
