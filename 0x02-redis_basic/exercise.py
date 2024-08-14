@@ -15,7 +15,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    def Store(self, data: UnionOfTypes) -> str:
+    def store(self, data: UnionOfTypes) -> str:
         """Store method"""
         key = str(uuid4())
         self._redis.mset({key: data})
