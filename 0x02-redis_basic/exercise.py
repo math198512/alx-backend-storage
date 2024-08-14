@@ -2,6 +2,10 @@
 """simple Cache class"""
 import redis
 from uuid import uuid4
+from typing import Union, Optional, Callable
+
+
+UnionOfTypes = Union[str, bytes, int, float]
 
 
 class Cache:
@@ -11,7 +15,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    def Store(self, data) -> str:
+    def Store(self, data: UnionOfTypes) -> str:
         """Store method"""
         key = str(uuid4())
         self._redis.mset({key: data})
