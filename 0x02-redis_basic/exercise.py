@@ -3,10 +3,20 @@
 import redis
 from uuid import uuid4
 from typing import Union, Optional, Callable
+from functools import wraps
 
 
 UnionOfTypes = Union[str, bytes, int, float]
 
+def count_calls(method: Callable) -> Callable:
+    """TO DO"""
+    @wraps(method)
+    def wrapper(self, *args, **kwargs) -> any:
+        """here"""
+        self._redis.incr(method.__qualname__)
+
+        return method(self, *args, **kwargs)
+    return wrapper
 
 class Cache:
     """simple Cache class"""
@@ -15,6 +25,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: UnionOfTypes) -> str:
         """Store method"""
         key = str(uuid4())
