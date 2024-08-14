@@ -31,8 +31,8 @@ class Cache:
 
     def get_int(self, key: str) -> int:
         """Retrieves an integer value from a Redis data storage."""
-        return self.get(key: str, lambda x: int(x))
+        return self.get(key, lambda x: int(x))
 
     def get_str(self, key: str) -> str:
         """Retrieves a string value from a Redis data storage."""
-        return self.get(key: str, lambda x: x.decode('utf-8'))
+        return self.get(key, lambda x: x.decode('utf-8'))
