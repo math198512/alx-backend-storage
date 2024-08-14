@@ -8,6 +8,7 @@ from functools import wraps
 
 UnionOfTypes = Union[str, bytes, int, float]
 
+
 def count_calls(method: Callable) -> Callable:
     """TO DO"""
     @wraps(method)
@@ -17,6 +18,7 @@ def count_calls(method: Callable) -> Callable:
 
         return method(self, *args, **kwargs)
     return wrapper
+
 
 class Cache:
     """simple Cache class"""
