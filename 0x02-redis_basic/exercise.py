@@ -6,7 +6,8 @@ import redis
 class Cache:
     """simple Cache class"""
     def __init__(self) -> None:
-        _redis = redis.Redis()
-        _redis.flushdb()
+          """Constructor"""
+          self._redis = redis.Redis()
+          self._redis.flushdb()
 
     
