@@ -10,13 +10,27 @@ UnionOfTypes = Union[str, bytes, int, float]
 
 
 def count_calls(method: Callable) -> Callable:
-    """TO DO"""
+    """count the number of calls for a method"""
     @wraps(method)
     def wrapper(self, *args, **kwargs) -> any:
-        """here"""
+        """count wrapper"""
         self._redis.incr(method.__qualname__)
 
         return method(self, *args, **kwargs)
+    return wrapper
+
+
+def call_history(method: Callable) -> Callable:
+    """gives history of inputs and outputs for method"""
+    @wraps(method)
+    def wrapper(self, *args, **kwargs) -> any:
+        """call_history wrapper"""
+        in_key = '{}:inputs'.format(method.__qualname__)
+        out_key = '{}:outputs'.format(method.__qualname__)
+        self._redis.rpush(in_key, str(args))
+        output = method(self, *args, **kwargs)
+        self._redis.rpush(in_key, str(args))
+        return output
     return wrapper
 
 
